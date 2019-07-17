@@ -1,0 +1,47 @@
+/* I need to learn bootstrap :( */
+
+.wrapper {
+    display: flex;
+    margin: auto;
+    justify-content: center;
+}
+
+.reg {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.login {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 100px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.head {
+    padding: 0px 10px;
+    border-bottom: 1px solid black;
+    display: flex;
+    align-items: center;
+}
+
+.head h1 {
+    display: inline-block;
+    flex: 2 2 85%;
+}
+
+.head h2, a {
+    display: inline-block;
+    flex: 1 1 15%;
+}
+
+.head a {
+    display: inline-block;
+    flex: 1 1 0%;
+}
+

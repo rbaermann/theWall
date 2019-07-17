@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wall</title>
+    {% load static %}
+    <link rel='stylesheet' href='{% static "theWall_app/css/style.css" %}'>
+</head>
+<body>
+    <div class="container">
+        <div class="head">
+            <h1>CodingDojo Wall</h1>
+            <h2>Welcome, {{first_name}}</h2>
+            <a href='/logout'>Logout</a>
+        </div>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }} banner"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form action='/wall/createMessage' method='POST'>
+            {% csrf_token %}
+            <h2>Post a message</h2>
+            <textarea name='message'></textarea>
+            <input type='submit' value='Post a message'>
+        </form>
+        {% for message in myMessages %}
+        <div class="message">
+            <h4>{{message.user.first_name}} {{message.user.last_name}} - {{message.createdAt}}</h4>
+            <p>{{message.content}}</p>
+            {% if message.user.id == request.session.user %}
+                <a href="/message/{{message.id}}/destroy">Delete</a>
+            {% endif %}
+            {% for comment in message.comments.all %}
+                <div class="comment">
+                    <h5>{{comment.user.first_name}} {{comment.user.last_name}} - {{comment.createdAt}}</h5>
+                    <p>{{comment.content}}</p>
+                </div>
+            {% endfor %}
+            <form class="comment-form" action="comment/{{message.id}}/create" method="post">
+                {% csrf_token %}
+                <textarea name="comment"></textarea></br>
+                <input type="submit" value="Post a comment">
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
